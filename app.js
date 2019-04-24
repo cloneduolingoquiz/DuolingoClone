@@ -20,8 +20,32 @@ app.get("/", (req, res) => {
 		})	
 	})
   	.catch((err) => {
-  		res.sender(err)
+  		res.send(err)
   	})
+})
+
+app.get("/login", (req, res) => {
+	res.render("login.ejs")
+})
+
+app.get("/register", (req, res) => {
+	res.render("register.ejs", {
+		error: req.query.errMsg
+	})
+})
+
+app.post("/register", (req, res) => {
+	User.create({
+		name: req.body.name,
+		email: req.body.email,
+		password: req.body.password
+	})
+	.then((data) => {
+		res.redirect("/")
+	})
+	.catch((err) => {
+		res.redirect("/register?errMsg=" + err.errors[0].message)
+	})
 })
 
 app.use("/user", routesUser)
