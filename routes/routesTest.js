@@ -23,6 +23,8 @@ Router.get('/',(req,res) =>{
 	let arrQ = []
 	Question.findAll()
 	.then(value =>{
+		// console.log(value);
+		
 		let arrParse = []
 		for(let i = 0 ; i < value.length ; i++){
 			arrQ.push([value[i].question,value[i].id])
@@ -37,10 +39,12 @@ Router.get('/',(req,res) =>{
 				}
 			}
 		}
+		console.log(arrParse);
+		
 		res.render("test.ejs",{
 			questionData: arrParse
 		})
-		// console.log(arrParse)
+		console.log(arrParse)
 	})
 	.catch(err =>{
 		res.send(err)
@@ -49,6 +53,10 @@ Router.get('/',(req,res) =>{
 
 
 Router.post('/',(req,res) =>{
+	console.log(req.body);
+	console.log(req.session);
+	
+	
 	let questionName = req.body.que
 	let answer = req.body.answer
 	console.log(req.session.UserId, 'SADSADASDASDA')
@@ -100,41 +108,12 @@ Router.post('/',(req,res) =>{
 			console.log(creating)
 			Promise.all(creating)
 				.then(value => {
-					res.redirect('/')
+					res.redirect('/user/leaderboard')
 				})
 				.catch(err =>{
 					res.send(err)
 				})
 		})
-	// for (var i = 0; i < questionName.length; i++) {
-	// 	Question.findOne({where : {
-	// 		question: questionName[i]
-	// 	}
-	// 	})
-	// 	.then(value => {
-	// 		obj.push(value)
-	// 	// 	let flag = 0
-	// 	// 	if(value.answer === answer[i]){
-	// 	// 		flag = 1
-	// 	// 	}
-	// 	// 	console.log(req.session.UserId, req.body.answer[i])
-	// 	// 	Test.create({
-	// 	// 		UserId: req.session.UserId,
-	// 	// 		QuestionId: value.id,
-	// 	// 		userAnswer: req.body.answer[i],
-	// 	// 		countTrue: flag
-	// 	// 	})
-	// 	// 	.then(value => {
-	// 	// 		res.redirect('/')
-	// 	// 	})
-	// 	// 	.catch(err => {
-	// 	// 		res.send(err)
-	// 	// 	})
-	// 	})
-	// 	.catch(err =>{
-	// 		res.send(err)
-	// 	})
-	
 })
 
 

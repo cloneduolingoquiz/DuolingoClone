@@ -124,19 +124,51 @@ Router.post('/login',(req,res) =>{
 })
 
 Router.get('/leaderboard',function(req,res){
-	User.findAll({hooks:false}, {
+	let id = req.session.UserId
+	User.findByPk(id,{
 		include : {
-			model : Test
-		}
+			model : Test,
+			include : {
+				model : Question
+			}
+		},hooks:false
 	})
 	.then(value => {
 		// res.send(value)
-		console.log(value)
+		// console.log(value.dataValues[0].Tests)
+		// console.log(value.dataValues.Tests);
+		let totalSoal = 3
+		let data = value.dataValues.Tests
+		let score = 0
+		for(let i = data.length -1 ; i > data.length-(totalSoal+1) ; i--){
+			// console.log(data[i].dataValues.countTrue);
+			score += data[i].dataValues.countTrue
+		}
+		score = Math.round((score * 100)/totalSoal)
+		// console.log(score);
+		
+		res.render('score.ejs',{
+			dataScore : score
+		})
 	})
 	.catch(err =>{
 		console.log(err)
 		res.send(err)
 	})
 })
+
+// User.findAll({
+// 	include : {
+// 		model : Test
+// 	},hooks : false
+// })
+// .then(value => {
+// 	// res.send(value)
+// 	console.log(value)
+// })
+// .catch(err =>{
+// 	console.log(err)
+// 	res.send(err)
+// })
 
 module.exports = Router
