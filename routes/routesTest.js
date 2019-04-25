@@ -108,7 +108,7 @@ Router.post('/',(req,res) =>{
 			console.log(creating)
 			Promise.all(creating)
 				.then(value => {
-					res.redirect('/user/leaderboard')
+					res.redirect('/user/score')
 				})
 				.catch(err =>{
 					res.send(err)

@@ -51,7 +51,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
   User.associate = function(models) {
-    User.belongsTo(models.Test);
+    User.hasMany(models.Test,{
+    	foreignKey: 'UserId'
+    });
+    User.hasMany(models.Score,{
+      foreignKey: 'UserId'
+    })
   };
   return User;
 };
