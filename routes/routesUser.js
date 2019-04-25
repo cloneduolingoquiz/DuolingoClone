@@ -3,14 +3,21 @@ const User = require("../models").User
 const Test = require("../models").Test
 const Question = require("../models").Question
 
+
 Router.get("/", (req, res) => {
-	User.findAll()
+	// console.log('masuklog')
+	User.findAll({hooks:false})
 	.then(user => {
-		res.render('user.ejs',{
+		res.render("user.ejs",{
 			userData : user
 		})
 	})
+	// .then(function(value){
+	// 	// log(value)
+	// 	console.log(value)
+	// })
 	.catch(err =>{
+		console.log(err)
 		res.send(err)
 	})
 })
@@ -45,13 +52,69 @@ Router.post('/:id/edit',(req,res) => {
 })
 
 Router.get('/:id/delete',(req,res) => {
+	let id = req.params.id
 	User.destroy({
 		where : {id : id}
 	})
 	.then(value =>{
-		res.redirect('/user')
+		res.redirect('/')
 	})
 	.catch(err => {
+		res.send(err)
+	})
+})
+
+Router.get("/register", (req, res) => {
+	res.render("register.ejs", {
+		error: req.query.errMsg
+	})
+})
+
+Router.post("/register", (req, res) => {
+	console.log(req.body);
+	User.create({
+		// id : req.body.id,
+		name: req.body.name,
+		email: req.body.email,
+		password: req.body.password
+	})
+	.then(value => {
+		// console.log('berhasillll');
+		res.redirect("/user")
+	})
+	.catch((err) => {
+		console.log(err);
+		
+		res.redirect("/user/register?errMsg=" + err.errors[0].message)
+		// console.log(err)
+		// res.send(err)
+	})
+})
+
+Router.get("/login", (req, res) => {
+	res.render("login.ejs")
+})
+
+Router.post('/login',(req,res) =>{
+	// console.log(req.body);
+	// res.send(req.body)
+	User.findOne({where : {
+		email : req.body.email,
+		password: req.body.password
+	}})
+	.then(value => {
+		if(value){
+			req.session.isLogin = true
+			// let ok = req.session
+			// console.log(ok);
+			res.redirect('/user')
+		}else{
+			res.redirect('/register')
+		}
+	})
+	.catch(err =>{
+		console.log(err);
+		
 		res.send(err)
 	})
 })
