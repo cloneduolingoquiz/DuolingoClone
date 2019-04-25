@@ -51,7 +51,7 @@ Router.get('/',(req,res) =>{
 Router.post('/',(req,res) =>{
 	let questionName = req.body.que
 	let answer = req.body.answer
-	console.log(req.session.UserId, 'SADSADASDASDA')
+	// console.log(req.session.UserId, 'SADSADASDASDA')
 	let obj = []
 	questionName.forEach(ques => {
 		obj.push(

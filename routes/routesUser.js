@@ -123,10 +123,20 @@ Router.post('/login',(req,res) =>{
 	})
 })
 
+/*
+Albums.findAll({
+  include: [{// Notice `include` takes an ARRAY
+    model: Artists
+  }]
+})
+.then(albums => console.log(albums))
+.catch(console.error)
+*/
+
 Router.get('/leaderboard',function(req,res){
-	User.findAll({hooks:false}, {
+	Test.findAll({hooks:false}, {
 		include : {
-			model : Test
+			model : User
 		}
 	})
 	.then(value => {
