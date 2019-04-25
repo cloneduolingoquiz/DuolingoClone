@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const port = 3000
+const session = require('express-session')
 
 const routesUser = require("./routes/routesUser")
 const routesTest = require("./routes/routesTest")
@@ -11,6 +12,17 @@ const Test = require('./models').Test
 const Question = require('./models').Question
 
 app.use(express.urlencoded({extended: false}))
+
+let sess = {
+	secret : 'mainyuk',
+	cookie :{},
+	isLogin : false
+}
+
+app.use(session(sess))
+
+
+
 
 app.get("/", (req, res) => {
 	User.findAll()
@@ -24,29 +36,9 @@ app.get("/", (req, res) => {
   	})
 })
 
-app.get("/login", (req, res) => {
-	res.render("login.ejs")
-})
 
-app.get("/register", (req, res) => {
-	res.render("register.ejs", {
-		error: req.query.errMsg
-	})
-})
 
-app.post("/register", (req, res) => {
-	User.create({
-		name: req.body.name,
-		email: req.body.email,
-		password: req.body.password
-	})
-	.then((data) => {
-		res.redirect("/")
-	})
-	.catch((err) => {
-		res.redirect("/register?errMsg=" + err.errors[0].message)
-	})
-})
+
 
 app.use("/user", routesUser)
 app.use("/test", routesTest)
