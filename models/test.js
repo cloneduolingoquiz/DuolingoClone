@@ -7,8 +7,12 @@ module.exports = (sequelize, DataTypes) => {
     countTrue: DataTypes.INTEGER
   }, {});
   Test.associate = function(models) {
-    Test.belongsTo(Models.Question);
-    Test.belongsTo(Models.User);
+    Test.belongsTo(models.Question,{
+      foreignKey: 'QuestionId'
+    });
+    Test.belongsTo(models.User,{
+      foreignKey: 'UserId'
+    });
   };
   return Test;
 };
