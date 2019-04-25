@@ -2,6 +2,8 @@ const Router = require("express").Router()
 const User = require("../models").User
 const Test = require("../models").Test
 const Question = require("../models").Question
+const Score = require('../models').Score
+const dynamicSort = require('../helpers/dynamicSort')
 
 
 Router.get("/", (req, res) => {
@@ -123,7 +125,7 @@ Router.post('/login',(req,res) =>{
 	})
 })
 
-Router.get('/leaderboard',function(req,res){
+Router.get('/score',function(req,res){
 	let id = req.session.UserId
 	User.findByPk(id,{
 		include : {
@@ -144,17 +146,65 @@ Router.get('/leaderboard',function(req,res){
 			// console.log(data[i].dataValues.countTrue);
 			score += data[i].dataValues.countTrue
 		}
-		score = Math.round((score * 100)/totalSoal)
+		return score = Math.round((score * 100)/totalSoal)
 		// console.log(score);
-		
-		res.render('score.ejs',{
-			dataScore : score
+		})
+	.then(value =>{
+		let scorePlay = value
+		Score.create({
+			UserId : req.session.UserId,
+			score : value
+		})
+		.then(value =>{
+			res.render('score.ejs',{
+				dataScore : scorePlay
+			})
+		})
+		.catch(err =>{
+			res.send(err)
 		})
 	})
 	.catch(err =>{
 		console.log(err)
 		res.send(err)
 	})
+})
+
+Router.get('/leaderboard',function(req,res){
+	let arrUser = []
+	Score.findAll({hooks:false,
+		include : {
+			model: User
+		}
+	})
+	.then(value =>{
+		// console.log(value[0].score,value[0].dataValues.User.name);
+		// res.send(value)
+		
+		let arrObj = []
+		value.forEach(value => {
+			// console.log(user.Scores.length);
+			arrObj.push({
+				name: value.dataValues.User.name,
+				score: value.score
+			})
+		});
+
+
+		arrObj.sort(dynamicSort('score'))
+		// let sorted = score.sort(function(a,b){return b-a})
+		// console.log(arrObj);
+
+		
+	// console.log(arrUser);
+		res.render('leaderboard.ejs',{
+			objData : arrObj
+		})
+	})
+	.catch(err =>{
+		res.send(err)
+	})
+
 })
 
 // User.findAll({

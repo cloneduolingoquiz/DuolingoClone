@@ -54,6 +54,9 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Test,{
     	foreignKey: 'UserId'
     });
+    User.hasMany(models.Score,{
+      foreignKey: 'UserId'
+    })
   };
   return User;
 };
