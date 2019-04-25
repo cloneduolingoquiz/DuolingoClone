@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width", initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <%- include ../views/partials/style.ejs %>
+    <title>Duolingo Clone App</title>
+</head>
+<body background="https://monodomo.com/free-wallpapers/dark-nature-wallpapers-1080p-For-Free-Wallpaper-1.jpg" >
+	<%- include ../views/partials/navbarQ.ejs %>
+	<div style="margin-left: 26%; width: 50%; background-color: black; padding: 20px; opacity: 0.9;">
+  	<form action="test" method="POST">
+  		<% for (var i = 0; i < questionData.length; i++) { %>
+			<label style="color: white;" for="question"><%= i+1+'. '%> Question :</label>
+			<label style="color: white;"><%= questionData[i] %></label>
+    		<input type="text"  name="answer" placeholder="the Answer is..">
+		<% } %>
+    	<input type="submit" value="Submit">
+  </form>
+</div>
+</body>
+</html>
