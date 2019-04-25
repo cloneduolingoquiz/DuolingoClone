@@ -123,6 +123,16 @@ Router.post('/login',(req,res) =>{
 	})
 })
 
+/*
+Albums.findAll({
+  include: [{// Notice `include` takes an ARRAY
+    model: Artists
+  }]
+})
+.then(albums => console.log(albums))
+.catch(console.error)
+*/
+
 Router.get('/leaderboard',function(req,res){
 	let id = req.session.UserId
 	User.findByPk(id,{
