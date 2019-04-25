@@ -20,7 +20,6 @@ Router.get('/',(req,res) =>{
 		}
 	}
 	
-
 	let arrQ = []
 	Question.findAll()
 	.then(value =>{
@@ -46,16 +45,34 @@ Router.get('/',(req,res) =>{
 	.catch(err =>{
 		res.send(err)
 	})
-});
+})
 
-	// arrQ.push(questionData)
+Router.post("/add",(req,res)=>{
+	Question.create({
+		question: req.body.question,
+		answer: req.body.answer
+	})
+	.then(value =>{
+		res.redirect('/question')
+	})
+	.catch(err =>{
+		res.send(err)
+	})
+})
 
-	// Question.findAll({})
-	// .then(value => {
-	// 	res.render("test.ejs",{
-	// 		questionData: value
-	// 	})
+Router.post("/", (req,res) => {
+	Test.create({
+		testData: 
+	})
+	let arrAnswer = []
+	while(arrAnswer.length < arrId.length) {
+		console.log(req.body.answer)
+		arrAnswer.push(req.body.answer)	
+	}
+	console.log(arrAnswer)
+	// Test.create({
+	// 	userAnswer: req.body.answer,
 	// })
-// })
+})
 
 module.exports = Router

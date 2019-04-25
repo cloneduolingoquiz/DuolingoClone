@@ -9,17 +9,15 @@
 </head>
 <body background="https://monodomo.com/free-wallpapers/dark-nature-wallpapers-1080p-For-Free-Wallpaper-1.jpg" >
 	<%- include ../views/partials/navbar.ejs %>
-	<div style="color: white; text-align: center; margin-top: 8%">
+	<div style="color: white; text-align: center; margin-top: 17%">
 	<h1> Learn a language, and you’ll avoid a war.</h1>
 	<h3> - Arab Proverb - </h3>	
-	</div>
-
-	<div>
-		<a href="../test"> Take a Test! </a>
+	<br><br><br>
+	<button onclick="window.location.href='/test'" style="width: 40%; background-color: black; padding: 14px 20px; color: white; border-radius: 3px;"> Take a Test! </button>
 	</div>
 	
 	<br>
-	<table style="width:100%">
+	<!-- <table style="width:100%">
 	  <tr>
 	    <th>ID</th>
 	    <th>First Name</th>
@@ -34,6 +32,6 @@
 			<td><%= dataUser[i].password %></td>
 			</tr>
 	  	<% } %>
-	</table>
+	</table> -->
 </body>
 </html>
