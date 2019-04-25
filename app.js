@@ -16,24 +16,13 @@ app.use(express.urlencoded({extended: false}))
 let sess = {
 	secret : 'mainyuk',
 	cookie :{},
-	isLogin : false
+	// isLogin : false
 }
 
 app.use(session(sess))
 
-
-
-
 app.get("/", (req, res) => {
-	User.findAll()
-	.then((db) => {
-		res.render("./index.ejs", {
-		dataUser: db,
-		})	
-	})
-  	.catch((err) => {
-  		res.send(err)
-  	})
+	res.render('index.ejs')
 })
 
 

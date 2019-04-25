@@ -13,7 +13,8 @@
   	<form action="test" method="post">
   		<% for (var i = 0; i < questionData.length; i++) { %>
 			<label style="color: white;" for="question"><%= i+1+'. '%> Question :</label>
-			<label style="color: white;"><%= questionData[i] %></label>
+			<!-- <label style="color: white;" name="que"></label> -->
+        <input type="text"  name="que" value="<%= questionData[i][0] %>" readonly="readonly">
     		<input type="text"  name="answer" placeholder="the Answer is..">
 		<% } %>
     	<input type="submit" value="Submit">

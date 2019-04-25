@@ -33,7 +33,7 @@ Router.get('/',(req,res) =>{
 		for(let i = 0 ; i < arrId.length ; i++){
 			for (var j = 0; j < arrQ.length; j++) {
 				if(arrId[i] === arrQ[j][1]) {
-					arrParse.push(arrQ[j][0])
+					arrParse.push(arrQ[j])
 				}
 			}
 		}
@@ -47,32 +47,96 @@ Router.get('/',(req,res) =>{
 	})
 })
 
-Router.post("/add",(req,res)=>{
-	Question.create({
-		question: req.body.question,
-		answer: req.body.answer
+
+Router.post('/',(req,res) =>{
+	let questionName = req.body.que
+	let answer = req.body.answer
+	console.log(req.session.UserId, 'SADSADASDASDA')
+	let obj = []
+	questionName.forEach(ques => {
+		obj.push(
+			Question.findOne({where: {question: ques}})
+		)
 	})
-	.then(value =>{
-		res.redirect('/question')
-	})
-	.catch(err =>{
-		res.send(err)
-	})
+	console.log(obj)
+	Promise.all(obj)
+		.then(found => {
+			
+			let ids =found.map(test => {
+				return [test.id,test.answer]
+			})
+			// console.log(ids)
+			return ids
+		})
+		.then(value => {
+			let ids = value
+			console.log(ids)
+			let creating = []
+			ids.forEach((cre,index) => {
+				// console.log(cre)
+				let flag = 0
+				if(cre[1] === answer[index]){
+					flag = 1
+					creating.push(
+						Test.create({
+							UserId: req.session.UserId,
+							QuestionId: cre[0],
+							userAnswer: answer[index],
+							countTrue: flag
+						})
+					)	
+				}else{
+					creating.push(
+						Test.create({
+							UserId: req.session.UserId,
+							QuestionId: cre[0],
+							userAnswer: answer[index],
+							countTrue: flag
+						})
+					)
+				}
+				
+			})
+			console.log(creating)
+			Promise.all(creating)
+				.then(value => {
+					res.redirect('/')
+				})
+				.catch(err =>{
+					res.send(err)
+				})
+		})
+	// for (var i = 0; i < questionName.length; i++) {
+	// 	Question.findOne({where : {
+	// 		question: questionName[i]
+	// 	}
+	// 	})
+	// 	.then(value => {
+	// 		obj.push(value)
+	// 	// 	let flag = 0
+	// 	// 	if(value.answer === answer[i]){
+	// 	// 		flag = 1
+	// 	// 	}
+	// 	// 	console.log(req.session.UserId, req.body.answer[i])
+	// 	// 	Test.create({
+	// 	// 		UserId: req.session.UserId,
+	// 	// 		QuestionId: value.id,
+	// 	// 		userAnswer: req.body.answer[i],
+	// 	// 		countTrue: flag
+	// 	// 	})
+	// 	// 	.then(value => {
+	// 	// 		res.redirect('/')
+	// 	// 	})
+	// 	// 	.catch(err => {
+	// 	// 		res.send(err)
+	// 	// 	})
+	// 	})
+	// 	.catch(err =>{
+	// 		res.send(err)
+	// 	})
+	
 })
 
-Router.post("/", (req,res) => {
-	Test.create({
-		testData: 
-	})
-	let arrAnswer = []
-	while(arrAnswer.length < arrId.length) {
-		console.log(req.body.answer)
-		arrAnswer.push(req.body.answer)	
-	}
-	console.log(arrAnswer)
-	// Test.create({
-	// 	userAnswer: req.body.answer,
-	// })
-})
+
 
 module.exports = Router

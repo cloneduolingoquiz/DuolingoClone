@@ -104,10 +104,14 @@ Router.post('/login',(req,res) =>{
 	}})
 	.then(value => {
 		if(value){
+			req.session.UserId = value.id
 			req.session.isLogin = true
+			console.log(typeof req.session.UserId)
 			// let ok = req.session
 			// console.log(ok);
-			res.redirect('/user')
+			// console.log(req.session.id, '------');
+			// console.log(value.dataValues.id,'++++++++');
+			res.redirect('/')
 		}else{
 			res.redirect('/register')
 		}
@@ -115,6 +119,22 @@ Router.post('/login',(req,res) =>{
 	.catch(err =>{
 		console.log(err);
 		
+		res.send(err)
+	})
+})
+
+Router.get('/leaderboard',function(req,res){
+	User.findAll({hooks:false}, {
+		include : {
+			model : Test
+		}
+	})
+	.then(value => {
+		// res.send(value)
+		console.log(value)
+	})
+	.catch(err =>{
+		console.log(err)
 		res.send(err)
 	})
 })
