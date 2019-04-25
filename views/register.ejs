@@ -10,17 +10,19 @@
 <body background="https://monodomo.com/free-wallpapers/dark-nature-wallpapers-1080p-For-Free-Wallpaper-1.jpg" >
 	<%- include ./partials/navbar.ejs %>
 <h2 style="text-align: center; color: white;"> Register </h2>
-	<form style="padding: 15px; width: 100%;" action="/register" method="post">
-		<div style="margin-left: 28%; width: 50%;">
-		  <label style="color: white;">Name: </label> <br>
-		  <input style="padding: 10px; font-size: 15px; width: 83.5%; float: center;" type="text" name="name"><br><br>
-		  <label style="color: white;">Email: </label> <br>
-		  <input style="padding: 10px; font-size: 15px; width: 80%; float: center;" type="email" name="email"><br><br>
-		  <label style="color: white;">Password: </label> <br>
-		  <input style="padding: 10px; font-size: 15px; width: 80%; float: center;" type="password" name="password"><br>
-		  <br><br><br>
-		  <button style="background-color: blue; color:white; border: 1px solid black; text-align: center; width: 83.5%; padding:10px; font-size: 15px; float: left;" type="submit" value="Submit">Register</button>
-		</div>
-	</form> 
+<h2 style="text-align: center; color: white;"> <%= error%></h2>
+<form style="padding: 15px; width: 100%;" action="/user/register" method="POST">
+	<div style="margin-left: 28%; width: 50%;">
+	  <label style="color: white;">Name: </label> <br>
+	  <input style="padding: 10px; font-size: 15px; width: 83.5%; float: center;" type="text" name="name"><br><br>
+	  <label style="color: white;">Email: </label> <br>
+	  <input style="padding: 10px; font-size: 15px; width: 80%; float: center;" type="email" name="email"><br><br>
+	  <label style="color: white;">Password: </label> <br>
+	  <input style="padding: 10px; font-size: 15px; width: 80%; float: center;" type="password" name="password"><br>
+	  <br><br><br>
+	  <button style="background-color: blue; color:white; border: 1px solid black; text-align: center; width: 83.5%; padding:10px; font-size: 15px; float: left;" type="submit" value="Submit">Register</button>
+	</div>
+</form> 
+</div>
 </body>
 </html>
