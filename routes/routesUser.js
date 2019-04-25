@@ -125,6 +125,7 @@ Router.post('/login',(req,res) =>{
 	})
 })
 
+
 Router.get('/score',function(req,res){
 	let id = req.session.UserId
 	User.findByPk(id,{
