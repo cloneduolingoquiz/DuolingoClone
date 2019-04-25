@@ -4,52 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width", initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <style type="text/css">
-    	table, th, td {
- 			border: 1px solid black;
-  			border-collapse: collapse;
-		}
-
-		th {
-			background-color: blue;
-			color: white;
-		}
-
-		th, td {
-  			padding: 5px;
-  			text-align: center;
-		}
-
-		.topnav {
-  		  overflow: hidden;
-		  background-color: white;
-		}
-
-		.topnav a {
-		  float: right;
-		  color: #333;
-		  text-align: center;
-		  padding: 14px 16px;
-		  text-decoration: none;
-		  font-size: 17px;
-		}
-
-		.topnav a:hover {
-		  background-color: blue;
-		  color: white;
-		}
-
-		.topnav a.active {
-		  background-color: blue;
-		  color: white;
-		}
-    </style>
+    <%- include ../views/partials/style.ejs %>
     <title>Duolingo Clone App</title>
 </head>
-<body>
+<body background="https://monodomo.com/free-wallpapers/dark-nature-wallpapers-1080p-For-Free-Wallpaper-1.jpg" >
 	<%- include ../views/partials/navbar.ejs %>
+	<div style="color: white; text-align: center; margin-top: 8%">
+	<h1> Learn a language, and you’ll avoid a war.</h1>
+	<h3> - Arab Proverb - </h3>	
+	</div>
+	
 	<br>
-	<h2 style = "text-align: center;">All Users Data</h2>
 	<table style="width:100%">
 	  <tr>
 	    <th>ID</th>
