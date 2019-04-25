@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width", initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <%- include ../views/partials/style.ejs %>
+    <title>Duolingo Clone App</title>
+</head>
+<body background="https://monodomo.com/free-wallpapers/dark-nature-wallpapers-1080p-For-Free-Wallpaper-1.jpg" >
+	<%- include ../views/partials/navbar.ejs %>
+	<div style="color: white; text-align: center; margin-top: 8%">
+	<h1> Learn a language, and you’ll avoid a war.</h1>
+	<h3> - Arab Proverb - </h3>	
+	</div>
+	
+	<br>
+	<table style="width:100%">
+	  <tr>
+	    <th>ID</th>
+	    <th>First Name</th>
+	    <th>Email</th>
+	    <th>Password</th>
+	  </tr>
+	  	<% for(var i = 0; i < dataUser.length; i++) { %>
+	  		<tr>
+			<td><%= dataUser[i].id %></td>
+			<td><%= dataUser[i].name %></td>
+			<td><%= dataUser[i].email %></td>
+			<td><%= dataUser[i].password %></td>
+			</tr>
+	  	<% } %>
+	</table>
+</body>
+</html>
