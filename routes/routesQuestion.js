@@ -4,6 +4,8 @@ const Test = require("../models").Test
 const Question = require("../models").Question
 const sequelize = require('sequelize')
 
+
+
 Router.get("/", (req, res) => {
 	Question.findAll({
 		order: sequelize.col('id')
@@ -38,6 +40,7 @@ Router.get('/:id/edit',(req,res) =>{
 	let id = req.params.id
 	Question.findByPk(id)
 	.then(value =>{
+		console.log(value)
 		res.render("editQuestion.ejs",{
 			questionData : value
 		})
