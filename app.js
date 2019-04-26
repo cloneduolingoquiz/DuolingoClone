@@ -22,7 +22,21 @@ let sess = {
 app.use(session(sess))
 
 app.get("/", (req, res) => {
-	res.render('index.ejs')
+	res.render('index.ejs',{
+		loginStat : req.session.isLogin
+	})
+})
+
+app.get("/home", (req, res) => {
+	res.render('index.ejs',{
+		loginStat: false
+	})
+})
+
+app.get('/admin',(req,res) =>{
+	res.render('admin.ejs',{
+		loginStat : req.session.isLogin
+	})
 })
 
 

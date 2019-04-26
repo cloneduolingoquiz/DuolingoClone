@@ -7,7 +7,7 @@ const randomNum = require("../helpers/randomNumQ.js")
 
 Router.get('/',(req,res) =>{
 	let arrId = []
-	while(arrId.length < 3){
+	while(arrId.length < 11){
 		let flag = false
 		let num = randomNum()
 		for( let i = 0 ; i < arrId.length ; i++){
@@ -19,7 +19,7 @@ Router.get('/',(req,res) =>{
 			arrId.push(num)
 		}
 	}
-	
+
 	let arrQ = []
 	Question.findAll()
 	.then(value =>{

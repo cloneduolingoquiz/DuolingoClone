@@ -8,13 +8,22 @@
     <title>Duolingo Clone App</title>
 </head>
 <body background="https://monodomo.com/free-wallpapers/dark-nature-wallpapers-1080p-For-Free-Wallpaper-1.jpg" >
+	<% if (loginStat === false || loginStat === undefined){%>
 	<%- include ../views/partials/navbar.ejs %>
-	<div style="color: white; text-align: center; margin-top: 17%">
-	<h1> Learn a language, and you’ll avoid a war.</h1>
-	<h3> - Arab Proverb - </h3>	
-	<br><br><br>
-	<button onclick="window.location.href='/test'" style="width: 40%; background-color: black; padding: 14px 20px; color: white; border-radius: 3px;"> Take a Test! </button>
-	</div>
-	<br>
+		<div style="color: white; text-align: center; margin-top: 17%">
+			<h1> Learn a language, and you’ll avoid a war.</h1>
+			<h3> - Arab Proverb - </h3>	
+			<br><br>
+			<button style="width: 40%; background-color: black; padding: 14px 20px; color: white; border-radius: 3px;"> Please login or register! </button>
+		</div>
+	<% } else {%>
+	<%- include ../views/partials/navbarQ.ejs %>
+		<div style="color: white; text-align: center; margin-top: 17%">
+			<h1> Learn a language, and you’ll avoid a war.</h1>
+			<h3> - Arab Proverb - </h3>	
+			<br><br><br>
+			<button onclick="window.location.href='/test'" style="width: 40%; background-color: black; padding: 14px 20px; color: white; border-radius: 3px;"> Take a Test! </button>
+		</div>
+	<% } %>
 </body>
 </html>

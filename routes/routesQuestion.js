@@ -20,7 +20,9 @@ Router.get("/", (req, res) => {
 })
 
 Router.get("/add",(req,res)=>{
-	res.render("registerQuestion.ejs")
+	res.render("registerQuestion.ejs",{
+		error : req.query.errmsg
+	})
 })
 
 Router.post("/add",(req,res)=>{
@@ -32,7 +34,7 @@ Router.post("/add",(req,res)=>{
 		res.redirect('/question')
 	})
 	.catch(err =>{
-		res.send(err)
+		res.redirect('/question/add?errmsg=' + err.errors[0].message)
 	})
 })
 

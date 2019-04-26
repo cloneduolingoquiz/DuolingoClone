@@ -82,7 +82,7 @@ Router.post("/register", (req, res) => {
 	})
 	.then(value => {
 		// console.log('berhasillll');
-		res.redirect("/user")
+		res.redirect("/")
 	})
 	.catch((err) => {
 		console.log(err);
@@ -92,6 +92,7 @@ Router.post("/register", (req, res) => {
 		// res.send(err)
 	})
 })
+
 
 Router.get("/login", (req, res) => {
 	res.render("login.ejs")
@@ -106,16 +107,22 @@ Router.post('/login',(req,res) =>{
 	}})
 	.then(value => {
 		if(value){
+			if(value.id === 5){
 			req.session.UserId = value.id
 			req.session.isLogin = true
-			console.log(typeof req.session.UserId)
+			res.redirect('/admin')
+			}else{
+			req.session.UserId = value.id
+			req.session.isLogin = true
+			// console.log( req.session.UserId)
 			// let ok = req.session
 			// console.log(ok);
 			// console.log(req.session.id, '------');
 			// console.log(value.dataValues.id,'++++++++');
 			res.redirect('/')
+			}
 		}else{
-			res.redirect('/register')
+			res.redirect('/home')
 		}
 	})
 	.catch(err =>{
@@ -139,10 +146,10 @@ Router.get('/score',function(req,res){
 		// res.send(value)
 		// console.log(value.dataValues[0].Tests)
 		// console.log(value.dataValues.Tests);
-		let totalSoal = 3
+		let totalSoal = 10
 		let data = value.dataValues.Tests
 		let score = 0
-		for(let i = data.length -1 ; i > data.length-(totalSoal+1) ; i--){
+		for(let i = data.length-1 ; i > data.length - (totalSoal+1) ; i--){
 			// console.log(data[i].dataValues.countTrue);
 			score += data[i].dataValues.countTrue
 		}
@@ -182,6 +189,14 @@ Router.get('/leaderboard',function(req,res){
 		// res.send(value)
 		
 		let arrObj = []
+		// for(i = 0 ; i < 11 ; i++){
+		// 	arrObj.push({
+		// 		name: value[i].dataValues.User.name,
+		// 		score: value[i].score
+		// 	})
+		// }
+		// console.log(arrObj);
+		
 		value.forEach(value => {
 			// console.log(user.Scores.length);
 			arrObj.push({
@@ -192,19 +207,29 @@ Router.get('/leaderboard',function(req,res){
 
 
 		arrObj.sort(dynamicSort('score'))
+
 		// let sorted = score.sort(function(a,b){return b-a})
 		// console.log(arrObj);
 
 		
-	// console.log(arrUser);
+	console.log(req.session.id,'====');
 		res.render('leaderboard.ejs',{
-			objData : arrObj
+			UserId  : req.session.UserId, 
+			objData : arrObj,
+			loginStat: req.session.isLogin
 		})
 	})
 	.catch(err =>{
 		res.send(err)
 	})
 
+})
+
+Router.get('/logout',function(req,res){
+	req.session.destroy(function(err){
+		res.send(err)
+	})
+	res.redirect('/home')
 })
 
 // User.findAll({

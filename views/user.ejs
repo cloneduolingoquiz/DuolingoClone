@@ -4,24 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <%- include ../views/partials/style.ejs %>
     <title>Duolingo Clone App</title>
-    <style>
-        table, th, td {
-          border: 1px solid black;
-          background-color: bisque;
-          width: 700px;
-          margin: auto;
-          text-align: center;
-        }
-
-        h1,h3{
-            text-align: center
-        }
-    </style>
 </head>
 <body background="https://monodomo.com/free-wallpapers/dark-nature-wallpapers-1080p-For-Free-Wallpaper-1.jpg" >
-        <h1>List of Users</h1>
-        <table>
+    <%- include ../views/partials/navbarN.ejs %>    
+    <h1 style="color: white">List of Users</h1>
+        <table style="width: 30%; margin-top: 3%; margin-left: 20%; background-color: black; opacity: 0.7;">
             <tr>
                 <th>id</th>
                 <th>name</th>

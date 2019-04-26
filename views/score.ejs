@@ -4,16 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <%- include ./partials/style.ejs %>
+    <title>Duolingo Clone App</title>
 </head>
-<body>
-    <table>
-        <tr>
-            <th>Score</th>
-        </tr>
-        <tr>
-            <td><%= dataScore%></td>
-        </tr>
-    </table>
+<body background="https://monodomo.com/free-wallpapers/dark-nature-wallpapers-1080p-For-Free-Wallpaper-1.jpg" >
+    <%- include ./partials/navbar.ejs %>
+    <% if (dataScore < 50) { %>
+        <h2 style="text-align: center; color: white; margin-top:15%">You need much practice</h2>
+        <% } else if (dataScore >= 50 && dataScore <= 75) { %>
+            <h2 style="text-align: center; color: white; margin-top:15%">You need some practice</h2>
+        <% } else { %>
+            <h2 style="text-align: center; color: white; margin-top:15%">Great Job!</h2>
+    <% } %>
+    <br>
+    <h2 style="text-align: center; color: white;"><%= dataScore %></h2>
 </body>
 </html>
